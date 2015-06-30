@@ -37,8 +37,11 @@ class Post : PFObject, PFSubclassing {
         let imageFile = PFFile(data: imageData)
         imageFile.saveInBackgroundWithBlock(nil)
         
+        user = PFUser.currentUser()
         self.imageFile = imageFile
         saveInBackgroundWithBlock(nil)
+        
+        
         
     }
  
