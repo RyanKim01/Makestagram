@@ -63,7 +63,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="470" id="WFl-PA-9sy" customClass="PostTableViewCell" customModule="Makestagram" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="470" id="WFl-PA-9sy" customClass="PostTableViewCell" customModule="Makestagram" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WFl-PA-9sy" id="Ouu-rk-9Nv">
@@ -76,7 +76,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbN-Kv-YpF">
-                                                    <rect key="frame" x="544" y="401.5" width="44" height="44"/>
+                                                    <rect key="frame" x="544" y="401" width="44" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="O9a-W8-wqR"/>
                                                         <constraint firstAttribute="width" constant="44" id="blz-CI-rVE"/>
@@ -87,16 +87,53 @@
                                                     </state>
                                                     <state key="selected" image="Heart-selected"/>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vX-TB-Bhr">
+                                                    <rect key="frame" x="8" y="407" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="Q6J-jX-Q4U"/>
+                                                        <constraint firstAttribute="height" constant="44" id="tnA-kd-ooH"/>
+                                                    </constraints>
+                                                    <state key="normal" image="More">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart" translatesAutoresizingMaskIntoConstraints="NO" id="gnu-54-KtE">
+                                                    <rect key="frame" x="20" y="367.5" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="RI4-3C-epD"/>
+                                                        <constraint firstAttribute="height" constant="20" id="eFs-M1-TvO"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTL-F3-Ggo">
+                                                    <rect key="frame" x="60" y="367" width="42" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="r39-RD-aTh"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="DbN-Kv-YpF" secondAttribute="bottom" constant="16" id="0kN-Zr-2iD"/>
+                                                <constraint firstItem="7vX-TB-Bhr" firstAttribute="top" secondItem="tTL-F3-Ggo" secondAttribute="bottom" constant="20" id="1ez-f8-0F0"/>
+                                                <constraint firstItem="tTL-F3-Ggo" firstAttribute="leading" secondItem="gnu-54-KtE" secondAttribute="trailing" constant="20" id="MXU-Hr-6OG"/>
+                                                <constraint firstItem="7vX-TB-Bhr" firstAttribute="leading" secondItem="Ouu-rk-9Nv" secondAttribute="leadingMargin" id="S7K-nQ-WyH"/>
                                                 <constraint firstItem="wO3-d8-ZSM" firstAttribute="leading" secondItem="Ouu-rk-9Nv" secondAttribute="leading" id="ToX-Rn-fEV"/>
                                                 <constraint firstAttribute="trailing" secondItem="wO3-d8-ZSM" secondAttribute="trailing" id="cTa-DQ-reV"/>
+                                                <constraint firstItem="7vX-TB-Bhr" firstAttribute="top" secondItem="gnu-54-KtE" secondAttribute="bottom" constant="20" id="cXU-ti-BFp"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7vX-TB-Bhr" secondAttribute="bottom" constant="10" id="d47-cX-mSR"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="DbN-Kv-YpF" secondAttribute="trailing" constant="4" id="erm-Sx-4Wd"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="tTL-F3-Ggo" secondAttribute="trailing" constant="50" id="etO-8q-wqP"/>
                                                 <constraint firstItem="wO3-d8-ZSM" firstAttribute="top" secondItem="Ouu-rk-9Nv" secondAttribute="top" id="i7R-F8-PJm"/>
+                                                <constraint firstItem="gnu-54-KtE" firstAttribute="leading" secondItem="Ouu-rk-9Nv" secondAttribute="leadingMargin" constant="12" id="l7H-W5-8lp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="likeButton" destination="DbN-Kv-YpF" id="7FD-7x-KAq"/>
+                                            <outlet property="likesIconImageView" destination="gnu-54-KtE" id="QNd-6B-ema"/>
+                                            <outlet property="likesLabel" destination="tTL-F3-Ggo" id="IpC-ag-WX3"/>
+                                            <outlet property="moreButton" destination="7vX-TB-Bhr" id="sHZ-Wy-0GA"/>
                                             <outlet property="postImageView" destination="wO3-d8-ZSM" id="ytb-ky-dRc"/>
                                         </connections>
                                     </tableViewCell>
@@ -151,6 +188,7 @@
         <image name="Heart" width="72" height="68"/>
         <image name="Heart-selected" width="72" height="68"/>
         <image name="Home" width="38" height="36"/>
+        <image name="More" width="26" height="17"/>
         <image name="People" width="42" height="42"/>
     </resources>
 </document>

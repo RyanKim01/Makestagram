@@ -56,7 +56,7 @@ class Post : PFObject, PFSubclassing {
     
     func downloadImage() {
         if (image.value == nil) {
-            imageFile?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError) -> Void in
+            imageFile?.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
                 if let data = data {
                     let image = UIImage(data: data, scale: 1.0)!
                     self.image.value = image
