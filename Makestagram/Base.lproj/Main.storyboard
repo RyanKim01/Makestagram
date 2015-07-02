@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BMz-lC-coR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BMz-lC-coR">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -59,20 +59,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="320" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bi5-we-sgS">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="470" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bi5-we-sgS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="320" id="WFl-PA-9sy" customClass="PostTableViewCell" customModule="Makestagram" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="470" id="WFl-PA-9sy" customClass="PostTableViewCell" customModule="Makestagram" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WFl-PA-9sy" id="Ouu-rk-9Nv">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wO3-d8-ZSM">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wO3-d8-ZSM">
                                                     <rect key="frame" x="0.0" y="-1" width="600" height="319.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="344" id="Wfs-hm-VQX"/>
+                                                    </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbN-Kv-YpF">
+                                                    <rect key="frame" x="544" y="401.5" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="O9a-W8-wqR"/>
+                                                        <constraint firstAttribute="width" constant="44" id="blz-CI-rVE"/>
+                                                    </constraints>
+                                                    <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                                    <state key="normal" image="Heart">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="Heart-selected"/>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="DbN-Kv-YpF" secondAttribute="bottom" constant="16" id="0kN-Zr-2iD"/>
+                                                <constraint firstItem="wO3-d8-ZSM" firstAttribute="leading" secondItem="Ouu-rk-9Nv" secondAttribute="leading" id="ToX-Rn-fEV"/>
+                                                <constraint firstAttribute="trailing" secondItem="wO3-d8-ZSM" secondAttribute="trailing" id="cTa-DQ-reV"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="DbN-Kv-YpF" secondAttribute="trailing" constant="4" id="erm-Sx-4Wd"/>
+                                                <constraint firstItem="wO3-d8-ZSM" firstAttribute="top" secondItem="Ouu-rk-9Nv" secondAttribute="top" id="i7R-F8-PJm"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="postImageView" destination="wO3-d8-ZSM" id="ytb-ky-dRc"/>
@@ -126,6 +148,8 @@
     </scenes>
     <resources>
         <image name="Camera" width="40" height="30"/>
+        <image name="Heart" width="72" height="68"/>
+        <image name="Heart-selected" width="72" height="68"/>
         <image name="Home" width="38" height="36"/>
         <image name="People" width="42" height="42"/>
     </resources>
