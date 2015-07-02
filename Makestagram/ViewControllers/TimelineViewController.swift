@@ -10,14 +10,30 @@ import UIKit
 import Parse
 
 class TimelineViewController: UIViewController {
-    
+    @IBOutlet weak var tableView: UITableView!
     var photoTakingHelper: PhotoTakingHelper?
+    var posts: [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.delegate = self
         // Do any additional setup after loading the view.
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        ParseHelper.timelineRequestforCurrentUser {
+            (result: [AnyObject]?, error: NSError?) -> Void in
+            self.posts = result as? [Post] ?? []
+            
+            for post in self.posts {
+                let data = post.imageFile?.getData()
+                post.image = UIImage(data: data!, scale: 1.0)
+            }
+            self.tableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,4 +75,18 @@ extension TimelineViewController : UITabBarControllerDelegate {
         }
     }
 }
+
+extension TimelineViewController : UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as! PostTableViewCell
+        cell.postImageView.image = posts[indexPath.row].image
+        
+        return cell
+    }
+}
+
 
