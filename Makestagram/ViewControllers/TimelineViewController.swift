@@ -28,10 +28,6 @@ class TimelineViewController: UIViewController {
             (result: [AnyObject]?, error: NSError?) -> Void in
             self.posts = result as? [Post] ?? []
             
-            for post in self.posts {
-                let data = post.imageFile?.getData()
-                post.image = UIImage(data: data!, scale: 1.0)
-            }
             self.tableView.reloadData()
         }
     }
@@ -44,7 +40,7 @@ class TimelineViewController: UIViewController {
     func takephoto() {
         photoTakingHelper = PhotoTakingHelper(viewController: self.tabBarController!) { (image: UIImage?) in
             let post = Post()
-            post.image = image
+            post.image.value = image!
             post.uploadPost()
         }
         
@@ -83,7 +79,9 @@ extension TimelineViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as! PostTableViewCell
-        cell.postImageView.image = posts[indexPath.row].image
+        let post = posts[indexPath.row]
+        post.downloadImage()
+        cell.post = post
         
         return cell
     }
