@@ -16,6 +16,7 @@ class Post : PFObject, PFSubclassing {
     @NSManaged var user: PFUser?
     var image: Dynamic<UIImage?> = Dynamic(nil)
     var photoUploadTask : UIBackgroundTaskIdentifier?
+    var likes = Dynamic<[PFUser]?>(nil)
     
     //MARK: PFSubclassing Protocol
     
@@ -64,6 +65,42 @@ class Post : PFObject, PFSubclassing {
             }
         }
     }
+    
+    func fetchLikes() {
+        if(likes.value != nil) {
+            return
+        }
+        
+        ParseHelper.likesForPost(self, completionBlock: { (var likes: [AnyObject]?, error: NSError?) -> Void in
+            likes = likes?.filter {like in like[ParseHelper.ParseLikeFromUser] != nil}
+            
+            self.likes.value = likes?.map { likes in
+                let like = like as! PFObject
+                let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
+                
+                return fromUser
+                
+            }
+        })
+    }
+    
+    func doesUserLikePost(user:PFUser) -> Bool {
+        if let likes = likes.value {
+            return contains(likes,user)
+        } else {
+            return false
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }
