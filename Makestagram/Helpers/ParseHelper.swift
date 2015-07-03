@@ -49,5 +49,52 @@ class ParseHelper {
         
         query.findObjectsInBackgroundWithBlock(completionBlock)
         
-}
+    }
+    
+    //Mark: Likes
+    static func likePost (user: PFUser, post: Post) {
+        let likeObject = PFObject(className: ParseLikeClass)
+        likeObject[ParseLikeFromUser] = user
+        likeObject[ParseLikeToPost] = post
+        
+        likeObject.saveInBackgroundWithBlock(nil)
+    }
+    
+    
+    static func deletePost(user: PFUser, post: Post) {
+        let query = PFQuery(className: ParseLikeClass)
+        query.whereKey(ParseLikeFromUser, equalTo: user)
+        query.whereKey(ParseLikeToPost, equalTo: post)
+        
+        query.findObjectsInBackgroundWithBlock { (results: [AnyObject]?, error:NSError?) -> Void in
+            if let results = results as? [PFObject] {
+                for likes in results {
+                    likes.deleteInBackground()
+                }
+            }
+        }
+    }
+    
+    static func likesForPost (post:Post, completionBlock: PFArrayResultBlock) {
+        let query = PFQuery(className: ParseLikeClass)
+        query.whereKey(ParseLikeToPost, equalTo: post)
+        
+        query.includeKey(ParseLikeFromUser)
+        
+        query.findObjectsInBackgroundWithBlock(completionBlock)
+        
+            }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

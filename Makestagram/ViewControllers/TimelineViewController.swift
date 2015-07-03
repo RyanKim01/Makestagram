@@ -43,7 +43,6 @@ class TimelineViewController: UIViewController {
             post.image.value = image!
             post.uploadPost()
         }
-        
     }
     
     
