@@ -74,7 +74,7 @@ class Post : PFObject, PFSubclassing {
         ParseHelper.likesForPost(self, completionBlock: { (var likes: [AnyObject]?, error: NSError?) -> Void in
             likes = likes?.filter {like in like[ParseHelper.ParseLikeFromUser] != nil}
             
-            self.likes.value = likes?.map { likes in
+            self.likes.value = likes?.map { like in
                 let like = like as! PFObject
                 let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
                 
@@ -92,7 +92,15 @@ class Post : PFObject, PFSubclassing {
         }
     }
     
-    
+    func toggleLikePost(user: PFUser) {
+        if (doesUserLikePost(user)) {
+            likes.value = likes.value?.filter {$0 != user}
+            ParseHelper.unlikePost(user, post: self)
+        } else {
+            likes.value?.append(user)
+            ParseHelper.likePost(user, post: self)
+        }
+    }
     
     
     

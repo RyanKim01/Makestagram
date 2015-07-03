@@ -35,7 +35,7 @@ class ParseHelper {
     
     static func timelineRequestforCurrentUser (completionBlock: PFArrayResultBlock) {
         let followingQuery = PFQuery(className: ParseFollowClass)
-        followingQuery.whereKey(ParseLikeFromUser, equalTo:PFUser.currentUser()!)
+        followingQuery.whereKey(ParseFollowFromUser, equalTo:PFUser.currentUser()!)
         
         let postsFromFollowedUsers = Post.query()
         postsFromFollowedUsers!.whereKey(ParsePostUser, matchesKey: ParseFollowToUser, inQuery: followingQuery)
@@ -60,16 +60,18 @@ class ParseHelper {
         likeObject.saveInBackgroundWithBlock(nil)
     }
     
-    
-    static func deletePost(user: PFUser, post: Post) {
+    static func unlikePost(user: PFUser, post: Post) {
+        // 1
         let query = PFQuery(className: ParseLikeClass)
         query.whereKey(ParseLikeFromUser, equalTo: user)
         query.whereKey(ParseLikeToPost, equalTo: post)
         
-        query.findObjectsInBackgroundWithBlock { (results: [AnyObject]?, error:NSError?) -> Void in
+        query.findObjectsInBackgroundWithBlock {
+            (results: [AnyObject]?, error: NSError?) -> Void in
+            // 2
             if let results = results as? [PFObject] {
                 for likes in results {
-                    likes.deleteInBackground()
+                    likes.deleteInBackgroundWithBlock(nil)
                 }
             }
         }

@@ -86,6 +86,9 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="Heart-selected"/>
+                                                    <connections>
+                                                        <action selector="likeButtonTapped:" destination="WFl-PA-9sy" eventType="touchUpInside" id="mBH-6k-b5g"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vX-TB-Bhr">
                                                     <rect key="frame" x="8" y="407" width="44" height="44"/>
@@ -96,6 +99,9 @@
                                                     <state key="normal" image="More">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="moreButtonTapped:" destination="WFl-PA-9sy" eventType="touchUpInside" id="G2q-NU-jek"/>
+                                                    </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart" translatesAutoresizingMaskIntoConstraints="NO" id="gnu-54-KtE">
                                                     <rect key="frame" x="20" y="367.5" width="20" height="20"/>
