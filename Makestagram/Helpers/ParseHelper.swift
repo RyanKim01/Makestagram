@@ -33,7 +33,7 @@ class ParseHelper {
     static let ParseUserUsername = "username"
     
     
-    static func timelineRequestforCurrentUser (completionBlock: PFArrayResultBlock) {
+    static func timelineRequestforCurrentUser (range: Range<Int>, completionBlock: PFArrayResultBlock) {
         let followingQuery = PFQuery(className: ParseFollowClass)
         followingQuery.whereKey(ParseFollowFromUser, equalTo:PFUser.currentUser()!)
         
@@ -46,6 +46,9 @@ class ParseHelper {
         let query = PFQuery.orQueryWithSubqueries([postsFromFollowedUsers!, postsFromThisUser!])
         query.includeKey(ParsePostUser)
         query.orderByDescending(ParsePostCreatedAt)
+        
+        query.skip = range.startIndex
+        query.limit = range.endIndex - range.startIndex
         
         query.findObjectsInBackgroundWithBlock(completionBlock)
         
@@ -85,18 +88,20 @@ class ParseHelper {
         
         query.findObjectsInBackgroundWithBlock(completionBlock)
         
-            }
+        let query2 = PFQuery(className: ParseLikeClass)
+        query2.whereKey(ParseLikeToPost, equalTo: post)
+        
+        query2.includeKey(ParseLikeFromUser)
+        
+        query2.findObjectsInBackgroundWithBlock(completionBlock)
+        
+    }
+}
+
+extension PFObject : Equatable {
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}
+
+public func == (lhs: PFObject, rhs:PFObject) -> Bool {
+    return lhs.objectId == rhs.objectId
 }

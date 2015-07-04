@@ -8,11 +8,15 @@
 
 import UIKit
 import Parse
+import ConvenienceKit
 
-class TimelineViewController: UIViewController {
+class TimelineViewController: UIViewController, TimelineComponentTarget {
     @IBOutlet weak var tableView: UITableView!
     var photoTakingHelper: PhotoTakingHelper?
     var posts: [Post] = []
+    let defaultRange = 0...4
+    let additionalRangeSize = 5
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +49,16 @@ class TimelineViewController: UIViewController {
         }
     }
     
+    func loadInRange(range:Range<Int>, completionBlock: ([Post]?) -> Void) {
     
+    ParseHelper.timelineRequestforCurrentUser(range) {
+    (result: [AnyObject]?, error: NSError?) -> Void in
+        let posts = result as? [Post] ?? []
+        completionBlock(posts)
+        }
+    }
+    
+
     /*
     // MARK: - Navigation
     
@@ -87,4 +100,11 @@ extension TimelineViewController : UITableViewDataSource {
     }
 }
 
-
+public protocol TimelineComponentTarget: class {
+    typealias ContentType
+    
+    var defaultRange: Range<Int> { get }
+    var additionalRangeSize: Int { get }
+    var tableView: UITableView! { get }
+    func loadInRange(range:Range<Int>, completionBlock: ([ContentType]?) -> Void)
+}

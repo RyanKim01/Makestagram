@@ -24,16 +24,16 @@ class PostTableViewCell: UITableViewCell {
         post?.toggleLikePost(PFUser.currentUser()!)
     }
     
-    
     var post:Post? {
         didSet {
             if let post = post {
                 //not sure here
                 post.image ->> postImageView
+                post.likes ->> likeBond
             }
         }
     }
-    
+    var likeBond: Bond<[PFUser]?>!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,5 +46,36 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        likeBond = Bond<[PFUser]?>() { [unowned self] likeList in
+            if let likeList = likeList {
+                self.likesLabel.text = self.stringFromUserList(likeList)
+                self.likeButton.selected = contains(likeList, PFUser.currentUser()!)
+                self.likesIconImageView.hidden = (likeList.count == 0)
+            } else {
+                self.likesLabel.text = ""
+                self.likeButton.selected = false
+                self.likesIconImageView.hidden = true
+            }
+        }
+    }
+    
+    
+    func stringFromUserList(userList: [PFUser]) -> String {
+        let usernameList = userList.map { user in user.username!}
+        let commaSeparatedUserList = ", ".join(usernameList)
+        
+        return commaSeparatedUserList
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
