@@ -15,11 +15,11 @@ class TimelineViewController: UIViewController, TimelineComponentTarget {
     var photoTakingHelper: PhotoTakingHelper?
     let defaultRange = 0...4
     let additionalRangeSize = 5
-    var timelineComponent: TimelineComponent <Post, TimelineViewController>!
+     var timelineComponent: TimelineComponent <Post, TimelineViewController>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        timelineComponent = TimelineComponent(target: self)
+        timelineComponent = TimelineComponent (target: self)
         self.tabBarController?.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -27,7 +27,7 @@ class TimelineViewController: UIViewController, TimelineComponentTarget {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        TimelineComponent.loadInitialIfRequired()
+        timelineComponent.loadInitialIfRequired()
         }
     
     override func didReceiveMemoryWarning() {
@@ -81,7 +81,7 @@ extension TimelineViewController : UITabBarControllerDelegate {
 
 extension TimelineViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timelineComponent.content.count
+        return self.timelineComponent.content.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -95,18 +95,18 @@ extension TimelineViewController : UITableViewDataSource {
         return cell
     }
 }
-
-public protocol TimelineComponentTarget: class {
-    typealias ContentType
-    
-    var defaultRange: Range<Int> { get }
-    var additionalRangeSize: Int { get }
-    var tableView: UITableView! { get }
-    func loadInRange(range:Range<Int>, completionBlock: ([ContentType]?) -> Void)
-}
+//
+//public protocol TimelineComponentTarget: class {
+//    typealias ContentType
+//    
+//    var defaultRange: Range<Int> { get }
+//    var additionalRangeSize: Int { get }
+//    var tableView: UITableView! { get }
+//    func loadInRange(range:Range<Int>, completionBlock: ([ContentType]?) -> Void)
+//}
 
 extension TimelineViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        TimelineComponent.targetWillDisplayEntry(indexPath.row)
+        timelineComponent.targetWillDisplayEntry(indexPath.row)
     }
 }

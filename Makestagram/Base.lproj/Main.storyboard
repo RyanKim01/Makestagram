@@ -37,11 +37,89 @@
                     <view key="view" contentMode="scaleToFill" id="A7o-Kh-GKc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="t0Q-fJ-jrw">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Nh1-he-Lmm"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="E3n-Oq-J09" id="f22-We-8C4"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wyC-9H-wYT">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="62" id="cnf-mb-ByZ" customClass="FriendSearchTableViewCell" customModule="Makestagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cnf-mb-ByZ" id="lRZ-Ah-jfp">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRg-i9-37M">
+                                                    <rect key="frame" x="25" y="20" width="467" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="bux-Ub-PJn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wp-5G-SK1">
+                                                    <rect key="frame" x="556" y="9" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="U3L-Ud-61u"/>
+                                                        <constraint firstAttribute="width" constant="44" id="UIs-hk-Vfj"/>
+                                                    </constraints>
+                                                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                                    <state key="normal" image="Add">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="Check"/>
+                                                    <connections>
+                                                        <action selector="followButtonTapped:" destination="cnf-mb-ByZ" eventType="touchUpInside" id="t61-lG-j20"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="uRg-i9-37M" secondAttribute="trailing" constant="100" id="Lx8-c5-R8Y"/>
+                                                <constraint firstItem="3wp-5G-SK1" firstAttribute="trailing" secondItem="lRZ-Ah-jfp" secondAttribute="trailingMargin" constant="8" id="VWM-1l-2Iq"/>
+                                                <constraint firstItem="uRg-i9-37M" firstAttribute="leading" secondItem="lRZ-Ah-jfp" secondAttribute="leadingMargin" constant="17" id="nqU-G3-q9l"/>
+                                                <constraint firstAttribute="centerY" secondItem="3wp-5G-SK1" secondAttribute="centerY" id="pfw-Ws-w4J"/>
+                                                <constraint firstAttribute="centerY" secondItem="uRg-i9-37M" secondAttribute="centerY" id="rYC-lC-qzN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="followButton" destination="3wp-5G-SK1" id="7Px-9b-iwX"/>
+                                            <outlet property="usernameLabel" destination="uRg-i9-37M" id="7Qh-HZ-kYE"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="E3n-Oq-J09" id="YSf-ET-Enb"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="t0Q-fJ-jrw" secondAttribute="trailing" id="RTU-Hj-Xgj"/>
+                            <constraint firstItem="wyC-9H-wYT" firstAttribute="leading" secondItem="A7o-Kh-GKc" secondAttribute="leading" id="cqA-nV-Tc6"/>
+                            <constraint firstItem="t0Q-fJ-jrw" firstAttribute="leading" secondItem="A7o-Kh-GKc" secondAttribute="leading" id="k8h-TU-i58"/>
+                            <constraint firstItem="agu-sk-g9m" firstAttribute="top" secondItem="wyC-9H-wYT" secondAttribute="bottom" id="kYZ-Rj-8tF"/>
+                            <constraint firstItem="wyC-9H-wYT" firstAttribute="top" secondItem="t0Q-fJ-jrw" secondAttribute="bottom" id="nUD-6K-I1E"/>
+                            <constraint firstItem="t0Q-fJ-jrw" firstAttribute="top" secondItem="h6x-WP-TUD" secondAttribute="bottom" id="nmS-dr-gMc"/>
+                            <constraint firstAttribute="trailing" secondItem="wyC-9H-wYT" secondAttribute="trailing" id="v1b-YU-HXD"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="People" id="lSt-YV-wFy">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="searchBar" destination="t0Q-fJ-jrw" id="Cr0-xD-iAR"/>
+                        <outlet property="tableView" destination="wyC-9H-wYT" id="vC0-8X-VrI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1k-YX-4W4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -191,7 +269,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Add" width="42" height="42"/>
         <image name="Camera" width="40" height="30"/>
+        <image name="Check" width="42" height="42"/>
         <image name="Heart" width="72" height="68"/>
         <image name="Heart-selected" width="72" height="68"/>
         <image name="Home" width="38" height="36"/>
