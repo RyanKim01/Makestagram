@@ -146,6 +146,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="DBk-HP-ySU" id="5Ac-B5-idR"/>
+                                    <outlet property="delegate" destination="DBk-HP-ySU" id="cGv-ix-6E8"/>
                                 </connections>
                             </tableView>
                         </subviews>
