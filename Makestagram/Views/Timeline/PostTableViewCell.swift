@@ -26,6 +26,16 @@ class PostTableViewCell: UITableViewCell {
     
     var post:Post? {
         didSet {
+            if let oldValue = oldValue where oldValue != post {
+                likeBond.unbindAll()
+                postImageView.designatedBond.unbindAll()
+                
+                if (oldValue.image.bonds.count == 0) {
+                    oldValue.image.value = nil
+                }
+            }
+            
+            
             if let post = post {
                 //not sure here
                 post.image ->> postImageView

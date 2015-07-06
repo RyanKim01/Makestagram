@@ -8,12 +8,28 @@
 
 import UIKit
 import Parse
+import FBSDKCoreKit
+import ParseUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+    var parseLoginHelper: ParseLoginHelper!
+    
+    override init() {
+        super.init()
+        
+        parseLoginHelper = ParseLoginHelper {[unowned self] user, error in
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            } else if let user = user {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UIViewController
+                self.window?.rootViewController!.presentViewController(tabBarController, animated: true, completion: nil)
+            }
+        }
+    }
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
@@ -21,19 +37,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     Parse.setApplicationId("UqjZJ0FaydSvgzy5nm6uQqHPdOOT2PT0dzY2OLwF", clientKey: "0YMC8HFZ5bMHfkZ92OFBby9uNjzY9rYlY5kVwMVd")
     
-    PFUser.logInWithUsername("test", password: "test")
-    
-    if let user = PFUser.currentUser() {
-        println("Log in successful")
-    } else {
-        println("No logged in user :(")
-    }
-    
     let acl = PFACL()
     acl.setPublicReadAccess(true)
     PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
     
-    return true
+    PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+    let user = PFUser.currentUser()
+    let startViewController: UIViewController
+    
+    if (user != nil) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
+    } else {
+        let loginViewController = PFLogInViewController()
+        loginViewController.fields = .UsernameAndPassword | .LogInButton | .SignUpButton | .PasswordForgotten | .Facebook
+        loginViewController.delegate = parseLoginHelper
+        loginViewController.signUpController?.delegate = parseLoginHelper
+        
+        startViewController = loginViewController
+    }
+    
+    self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+    self.window?.rootViewController = startViewController
+    self.window?.makeKeyAndVisible()
+   
+    return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
   func applicationWillResignActive(application: UIApplication) {
@@ -50,10 +78,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   }
 
+   //MARK: Facebook Integration
+    
   func applicationDidBecomeActive(application: UIApplication) {
+   FBSDKAppEvents.activateApp()
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
   }
 
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+    
   func applicationWillTerminate(application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
